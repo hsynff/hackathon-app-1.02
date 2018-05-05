@@ -1,6 +1,7 @@
 package az.hackathon.controller;
 
 
+import az.hackathon.model.Progress;
 import az.hackathon.service.RepairService;
 import az.hackathon.util.Constants;
 import az.hackathon.util.Validator;
@@ -23,6 +24,7 @@ public class RepairController {
                                      @RequestParam("percent") int percent,
                                      @RequestParam("comment") String comment,
                                      @RequestParam("userEmail") String userEmail,
+                                     @RequestParam("userPhone") String userPhone,
                                      HttpSession session){
         if (!Validator.validate(repairId, percent, comment)){
             session.setAttribute("message", Constants.ERROR_EMPTY_INPUTS);
@@ -30,15 +32,30 @@ public class RepairController {
         }
 
         //TODO: call repairService.update() method here
-        boolean result = true;
+        Progress progress = new Progress();
+        progress.setPercent(percent);
+        progress.setComment(comment);
+        progress.setDate(new Date());
+
+        boolean result = repairService.updateRepairStatusById(repairId, progress);
 
         if (!result){
             session.setAttribute("message", Constants.ERROR_INTERNAL);
             return "redirect: /staff/repair/"+repairId;
         }
 
-        // TODO: send email to user
-        //
+        if (Validator.validate(userEmail)){
+            // TODO: send email to user
+            //
+        }
+
+        if (Validator.validate(userPhone)){
+            // TODO: send SMS notification to user
+            //
+        }
+
+
+
 
         return "redirect: /staff/repair/"+repairId;
 
@@ -50,8 +67,7 @@ public class RepairController {
         int active = 0;
         Date endDate = new Date();
 
-        // TODO: call repairservice.cancelRepair method here
-        boolean result = true;
+        boolean result = repairService.updateRepairActiveById(repairId, active, endDate);
 
         if (!result){
             session.setAttribute("message", Constants.ERROR_INTERNAL);
