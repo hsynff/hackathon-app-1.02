@@ -3,19 +3,16 @@ package az.hackathon.model;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name="progress")
+
 public class Progress {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_progress")
+
     private int idProgress;
-    @Column(name="percent")
+
     private int percent;
-    @Column(name="comment")
+
     private String comment;
-    @Column(name="date")
+
     private Date date;
 
     @ManyToOne

@@ -7,14 +7,13 @@ import java.util.List;
 @Table(name="model")
 public class Model {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idModel;
 
-    @Column(name="model")
+
     private String model;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
     private List<Device> devices;
 
     public int getIdModel() {

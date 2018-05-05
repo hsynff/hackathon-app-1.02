@@ -3,22 +3,19 @@ package az.hackathon.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="device")
+
 public class Device {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idDevice;
 
-    @Column(name="brand")
+
     private String brand;
 
-    @ManyToOne
-    @JoinColumn(name="id_model")
+
     private Model model;
 
-    @OneToMany(mappedBy = "device")
+
     private List<Repair> repairs;
 
     public int getIdDevice() {

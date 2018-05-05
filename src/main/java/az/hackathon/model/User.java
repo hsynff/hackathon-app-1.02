@@ -3,33 +3,29 @@ package az.hackathon.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="user")
+
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_user")
+
     private int idUser;
 
-    @Column(name="full_name")
+
     private String fullName;
-    @Column(name="email")
+
     private String email;
-    @Column(name="address")
+
     private String address;
-    @Column(name="contact_number")
+
     private String contactNumber;
 
-    @Column(name="fin")
+
     private String fin;
 
-    @OneToMany
+
     private List<Repair> repairs;
 
 
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="id_role")
+
     private Role role;
 
     public int getIdUser() {

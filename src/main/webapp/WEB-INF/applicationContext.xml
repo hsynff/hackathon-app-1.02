@@ -32,47 +32,27 @@
     </bean>
 
 
-
-
-
-
-    <!-- Step 1: Define Database DataSource / connection pool -->
-    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/ticketing"/>
-        <property name="user" value="root"/>
+    <bean id="boneCPDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/ticketing" />
+        <property name="username" value="root"/>
         <property name="password" value=""/>
-
-        <!-- these are connection pool properties for C3P0 -->
-        <property name="minPoolSize" value="5"/>
-        <property name="maxPoolSize" value="20"/>
-        <property name="maxIdleTime" value="30000"/>
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <property name="idleMaxAge" value="240"/>
+        <property name="maxConnectionsPerPartition" value="30"/>
+        <property name="minConnectionsPerPartition" value="10"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="100"/>
+        <property name="releaseHelperThreads" value="3"/>
     </bean>
 
-    <!-- Step 2: Setup Hibernate session factory -->
-    <bean id="factory"
-          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="myDataSource"/>
-        <property name="packagesToScan" value="az.hackathon.model"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/ticketing</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-            </props>
-        </property>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="boneCPDataSource"/>
     </bean>
 
-    <!-- Step 3: Setup Hibernate transaction manager -->
-    <bean id="myTransactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="factory"/>
-    </bean>
 
-    <!-- Step 4: Enable configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="myTransactionManager"/>
+
 
     <!-- Add support for reading web resources: css, images, js, etc ... -->
     <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>

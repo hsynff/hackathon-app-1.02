@@ -3,18 +3,15 @@ package az.hackathon.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="action")
+
 public class Action {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idAction;
 
-    @Column(name="action_name")
+
     private String actionName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "role_action", joinColumns = @JoinColumn(name = "id_action"), inverseJoinColumns = @JoinColumn(name = "id_role"))
+
     private List<Role> roles;
 
 

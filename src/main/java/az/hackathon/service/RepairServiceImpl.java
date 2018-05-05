@@ -22,16 +22,17 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public boolean updateRepairStatusById(int id, Progress progress) {
-        return false;
+        return repairDao.updateRepairStatusById(id,progress);
     }
 
     @Override
     public boolean updateRepairActiveById(int id, int active, Date endDate) {
-        return false;
+        return repairDao.updateRepairActiveById(id,active,endDate);
     }
 
     @Override
     public List<Repair> getRepairListByStaffId(int id) {
-        return null;
+
+        return repairDao.getRepairListByStaffId(id);
     }
 }

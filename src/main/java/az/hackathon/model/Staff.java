@@ -4,30 +4,34 @@ package az.hackathon.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name="staff")
+
 public class Staff {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idStaff;
 
-    @Column(name="full_name")
+
     private String fullName;
-    @Column(name="contact_number")
+
     private String contactNumber;
-    @Column(name="username")
+
     private String username;
-    @Column(name="password")
+
     private String password;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
     private Role role;
 
-    @OneToMany
+
     private List<Repair> repairs;
 
+    public List<Repair> getRepairs() {
+        return repairs;
+    }
 
+    public void setRepairs(List<Repair> repairs) {
+        this.repairs = repairs;
+    }
 
     public int getIdStaff() {
         return idStaff;

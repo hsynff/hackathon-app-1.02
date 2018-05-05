@@ -8,36 +8,29 @@ import java.util.List;
 @Table(name="repair")
 public class Repair {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_repair")
+
     private int idRepair;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private User user;
 
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinColumn(name="device_id")
     private Device device;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+
     private List<Progress> progresses;
 
-    @ManyToOne
-    @JoinColumn(name="id_staff")
+
     private Staff staff;
 
-    @Column(name="price")
+
     private int price;
-    @Column(name="title")
+
     private String title;
-    @Column(name="start_date")
+
     private Date startDate;
-    @Column(name="end_date")
+
     private Date endDate;
-    @Column(name="active")
+
     private int active;
 
 
