@@ -19,6 +19,15 @@ public class Repair {
 
     private List<Progress> progresses;
 
+    private Progress progress;
+
+    public Progress getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Progress progress) {
+        this.progress = progress;
+    }
 
     private Staff staff;
 

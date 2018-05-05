@@ -46,7 +46,7 @@ public class MainController {
     @RequestMapping("/logout")
     public String logoutHandler(HttpSession session){
        session.invalidate();
-       return "redirect: /login";
+       return "redirect:/login";
     }
 
     @RequestMapping("/user/search")
@@ -72,7 +72,7 @@ public class MainController {
         Repair repair = repairService.getRepairById(id);
 
         if (repair==null){
-            return "redirect: /staff/main";
+            return "redirect:/staff/main";
         }
 
         model.addAttribute("repair", repair);
@@ -95,7 +95,7 @@ public class MainController {
         //TODO: getter setter for Staff
         if (!Validator.validate(username, password, idRole)){
             session.setAttribute("message", Constants.ERROR_EMPTY_INPUTS);
-            return "redirect: /login";
+            return "redirect:/login";
         }
 
         Staff staff = new Staff();
@@ -116,9 +116,9 @@ public class MainController {
         session.setAttribute("staff", authorizedStaff);
 
          if (authorizedStaff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
-             return "redirect: /staff/main";
+             return "redirect:/staff/main";
          }else{
-             return "redirect: /manager/main";
+             return "redirect:/manager/main";
          }
 
     }
