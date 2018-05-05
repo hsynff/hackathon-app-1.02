@@ -35,4 +35,9 @@ public class RepairServiceImpl implements RepairService {
 
         return repairDao.getRepairListByStaffId(id);
     }
+
+    @Override
+    public int getTrackingNumberCount(String trackingNumber) {
+        return repairDao.getTrackingNumberCount(trackingNumber);
+    }
 }

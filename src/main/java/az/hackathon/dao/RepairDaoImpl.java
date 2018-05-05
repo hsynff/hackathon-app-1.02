@@ -150,6 +150,40 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public boolean updateRepairActiveById(int id, int active, Date endDate) {
+        String sql="update repair set active=?,end_date=? where id_repair=?";
+
+        try{
+            jdbcTemplate.update(sql,new Object[]{active,endDate,id});
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return false;
+    }
+
+
+    @Override
+    public int getTrackingNumberCount(String trackingNumber) {
+        String sql="select count(*) as count from repair where tracking_number=?";
+
+        try{
+            Integer result= jdbcTemplate.query(sql,new Object[]{trackingNumber}, new RowMapper<Integer>() {
+                @Override
+                public Integer mapRow(ResultSet rs, int i) throws SQLException {
+                    Integer c=rs.getInt("count");
+
+                    return c;
+                }
+            }).get(0);
+
+            return result;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
