@@ -53,7 +53,7 @@ public class RepairDaoImpl implements RepairDao {
                     progress.setComment(rs.getString("comment"));
                     progress.setDate(rs.getDate("date"));
                     r.setTitle(rs.getString("title"));
-                    r.setProgresses(Arrays.asList(progress));
+                    r.setProgress(progress);
                     r.setPrice(rs.getInt("price"));
                     r.setStartDate(rs.getDate("start_date"));
                     User u=new User();
