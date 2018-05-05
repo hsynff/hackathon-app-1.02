@@ -49,10 +49,12 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public List<Repair> getRepairListByStaffId(int id) {
-        String sql="select r.id_repair,m.model,d.brand,p.percent,r.price,r.start_date,u.full_name,u.fin,r.tracking_number\n" +
+        String sql="select  r.id_repair,m.model,d.brand,p.percent,r.price,r.start_date,u.full_name,u.fin,r.tracking_number\n" +
                 " from repair r join device d on r.id_device=d.id_device join model m on d.id_model=m.id_model\n" +
                 " join progress p on r.id_repair=p.id_repair\n" +
-                "join user u on r.id_user=u.id_user where r.id_staff=? and r.active=1";
+                "join user u on r.id_user=u.id_user where r.id_staff=1 and r.active=1 and \n" +
+                "p.percent=(select max(progress.percent) from progress group by(progress.id_repair))\n" +
+                " group by (r.id_repair)";
 
         try{
             List<Repair> result= jdbcTemplate.query(sql,new Object[]{id}, new RowMapper<Repair>() {
@@ -76,7 +78,7 @@ public class RepairDaoImpl implements RepairDao {
                     u.setFullName(rs.getString("full_name"));
                     u.setFin(rs.getString("fin"));
                     r.setUser(u);
-                    r.setTrackingNumber(rs.getString("tracking_numbet"));
+                    r.setTrackingNumber(rs.getString("tracking_number"));
 
                     return r;
                 }
