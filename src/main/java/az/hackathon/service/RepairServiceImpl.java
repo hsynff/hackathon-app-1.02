@@ -43,11 +43,13 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public List<Repair> getArchiveRepairListByStaffId(int id) {
-        return null;
+
+        return repairDao.getArchiveRepairListByStaffId(id);
     }
 
     @Override
     public Repair getArchiveRepairById(int id) {
-        return null;
+
+        return repairDao.getArchiveRepairById(id);
     }
 }
