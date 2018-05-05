@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public class RepairServiceImpl implements RepairService {
@@ -27,5 +28,10 @@ public class RepairServiceImpl implements RepairService {
     @Override
     public boolean updateRepairActiveById(int id, int active, Date endDate) {
         return false;
+    }
+
+    @Override
+    public List<Repair> getRepairListByStaffId(int id) {
+        return null;
     }
 }

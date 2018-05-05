@@ -7,6 +7,7 @@ import az.hackathon.util.Constants;
 import az.hackathon.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -75,6 +76,31 @@ public class RepairController {
 
         return "redirect: /staff/main";
 
+    }
+
+    @RequestMapping("/createRepair")
+    public String createRepair(@RequestParam("fin") String fin,
+                               @RequestParam("fullName") String fullName,
+                               @RequestParam("email") String email,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("address") String address,
+                               @RequestParam("brand") int idDevice,
+                               @RequestParam("model") int idModel,
+                               @RequestParam("title") String title,
+                               @RequestParam("price") int price,
+                               @RequestParam("idRepairer") int idRepairer,
+                               @RequestParam("isReturningUser") int isReturningUser){
+
+
+
+
+
+
+    }
+
+    @RequestMapping("/getUserByFin")
+    public String getUserByFin(@RequestParam("fin") String fin){
+        
     }
 
 }
