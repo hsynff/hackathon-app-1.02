@@ -29,4 +29,6 @@ public interface RepairService {
     List<Device> getAllDevice();
 
     boolean createNewRepair(Repair repair);
+
+    Repair getRepairByTrackingNumber(String trackingNumber);
 }
