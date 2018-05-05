@@ -108,7 +108,7 @@ public class RepairDaoImpl implements RepairDao {
                 " from repair r join device d on r.id_device=d.id_device join model m on d.id_model=m.id_model\n" +
                 " join progress p on r.id_repair=p.id_repair\n" +
                 "join user u on r.id_user=u.id_user where r.id_staff=? and r.active=1 and \n" +
-                "p.percent=(select max(progress.percent) from progress group by(progress.id_repair))\n" +
+                "p.percent=(select max(progress.percent) from progress where progress.id_repair=r.id_repair group by(progress.id_repair))\n" +
                 " group by (r.id_repair)";
 
         try{
@@ -193,7 +193,7 @@ public class RepairDaoImpl implements RepairDao {
                 " from repair r join device d on r.id_device=d.id_device join model m on d.id_model=m.id_model\n" +
                 " join progress p on r.id_repair=p.id_repair\n" +
                 "join user u on r.id_user=u.id_user where r.id_staff=? and r.active=0 and \n" +
-                "p.percent=(select max(progress.percent) from progress group by(progress.id_repair))\n" +
+                "p.percent=(select max(progress.percent) from progress where progress.id_repair=r.id_repair group by(progress.id_repair))\n" +
                 " group by (r.id_repair)";
 
         try{
