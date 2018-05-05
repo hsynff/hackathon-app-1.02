@@ -109,7 +109,7 @@ public class MainController {
 
         if (authorizedStaff==null){
             session.setAttribute("message", Constants.ERROR_INVALID_CREDENTIALS);
-            return "redirect: /login";
+            return "redirect:/login";
         }
 
 

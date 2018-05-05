@@ -20,4 +20,8 @@ public interface RepairService {
     List<Repair> getRepairListByStaffId(int id);
 
     int getTrackingNumberCount(String trackingNumber);
+
+    List<Repair> getArchiveRepairListByStaffId(int id);
+
+    Repair getArchiveRepairById(int id);
 }

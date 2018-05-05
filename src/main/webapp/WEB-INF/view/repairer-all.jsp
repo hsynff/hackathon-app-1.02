@@ -55,7 +55,7 @@
                                     <a href="/staff/repair/${list.idRepair}">${list.title}</a>
                                 </td>
                                 <td>
-                                    <a href="/staff/repair/${list.idRepair}">${list.progresses.get(list.progresses.size()-1)} %</a>
+                                    <a href="/staff/repair/${list.idRepair}">${list.progresses.get(list.progresses.size()-1).percent} %</a>
                                 </td>
                                 <td>
                                     <a href="/staff/repair/${list.idRepair}">${list.price}</a>

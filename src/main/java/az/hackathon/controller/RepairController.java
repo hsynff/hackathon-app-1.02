@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class RepairController {
@@ -29,10 +32,10 @@ public class RepairController {
                                      HttpSession session){
         if (!Validator.validate(repairId, percent, comment)){
             session.setAttribute("message", Constants.ERROR_EMPTY_INPUTS);
-            return "redirect: /staff/repair/"+repairId;
+            return "redirect:/staff/repair/"+repairId;
         }
 
-        //TODO: call repairService.update() method here
+
         Progress progress = new Progress();
         progress.setPercent(percent);
         progress.setComment(comment);
@@ -42,12 +45,14 @@ public class RepairController {
 
         if (!result){
             session.setAttribute("message", Constants.ERROR_INTERNAL);
-            return "redirect: /staff/repair/"+repairId;
+            return "redirect:/staff/repair/"+repairId;
         }
 
         if (Validator.validate(userEmail)){
             // TODO: send email to user
             //
+            ThreadPoolExecutor executor = new ThreadPoolExecutor(10,10,1, TimeUnit.SECONDS,  new LinkedBlockingQueue<Runnable>());
+            executor.execute(() -> System.out.println("MAil Sent"));
         }
 
         if (Validator.validate(userPhone)){
@@ -58,7 +63,7 @@ public class RepairController {
 
 
 
-        return "redirect: /staff/repair/"+repairId;
+        return "redirect:/staff/repair/"+repairId;
 
     }
 
@@ -74,7 +79,7 @@ public class RepairController {
             session.setAttribute("message", Constants.ERROR_INTERNAL);
         }
 
-        return "redirect: /staff/main";
+        return "redirect:/staff/main";
 
     }
 

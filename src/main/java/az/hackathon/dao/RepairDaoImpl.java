@@ -186,4 +186,14 @@ public class RepairDaoImpl implements RepairDao {
 
         return 0;
     }
+
+    @Override
+    public List<Repair> getArchiveRepairListByStaffId(int id) {
+        return null;
+    }
+
+    @Override
+    public Repair getArchiveRepairById(int id) {
+        return null;
+    }
 }

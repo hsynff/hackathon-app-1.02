@@ -75,7 +75,7 @@
                                 <li>
                                     Təmir statusu
                                 </li>
-                                <li> ${repair.progresses.get(repair.progresses.size()-1)} %</li>
+                                <li> ${repair.progresses.get(repair.progresses.size()-1).percent} %</li>
                             </ul>
                             <br>
                             <ul class="moreUl">
@@ -106,6 +106,7 @@
                                 </li>
                                 <li>
                                     ${repair.user.email}
+
                                 </li>
                             </ul>
                             <ul class="moreUl">
@@ -114,6 +115,7 @@
                                 </li>
                                 <li>
                                     ${repair.user.contactNumber}
+
                                 </li>
                             </ul>
                             <ul class="moreUl">
@@ -173,27 +175,44 @@
                     <h4 class="modal-title">Statusu yeniləyin</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="/updateStatus">
                         <div class="form-group">
                             <p>Status faizini daxil edin</p>
-                            <select class="form-control">
+                            <select class="form-control" name="percent">
                                 <option selected value="">0%</option>
-                                <option value="">10%</option>
-                                <option value="">20%</option>
-                                <option value="">30%</option>
-                                <option value="">40%</option>
-                                <option value="">50%</option>
-                                <option value="">60%</option>
-                                <option value="">70%</option>
-                                <option value="">80%</option>
-                                <option value="">90%</option>
-                                <option value="">100%</option>
+                                <option value="10">10%</option>
+                                <option value="20">20%</option>
+                                <option value="30">30%</option>
+                                <option value="40">40%</option>
+                                <option value="50">50%</option>
+                                <option value="60">60%</option>
+                                <option value="70">70%</option>
+                                <option value="80">80%</option>
+                                <option value="90">90%</option>
+                                <option value="100">100%</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <p>Rəyinizi daxil edin</p>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" name="comment"></textarea>
                         </div>
+                        <input type="hidden" name="id" value="${repair.idRepair}">
+                        <c:choose>
+                            <c:when test="${empty repair.user.email}">
+                                <input type="hidden" name="userEmail" value="">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="hidden" name="userEmail" value="${repair.user.email}">
+                            </c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${empty repair.user.contactNumber}">
+                                <input type="hidden" name="userPhone" value="">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="hidden" name="userPhone" value="${repair.user.contactNumber}">
+                            </c:otherwise>
+                        </c:choose>
                         <div class="form-group">
                             <button class="updateModalButton" type="submit">Yenilə</button>
                         </div>
