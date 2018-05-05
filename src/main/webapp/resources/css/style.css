@@ -1,0 +1,504 @@
+body {
+    font-family: Helvetica, sans-serif !important;
+}
+
+body::-webkit-scrollbar {
+	width: 5px;
+	background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #64257D; 
+    border-radius: 4px;
+}
+.bodyUser{
+    background: #64257D;
+}
+.adminLoginBody {
+    background: #64257D;
+    background: -webkit-linear-gradient(to left, #64257D, #4568DC);
+    background: linear-gradient(to left, #64257D, #4568DC);
+}
+
+.centerWrap {
+    background-color: white;
+    text-align: center;
+    margin-top: 8em;
+    border-radius: 4px;
+}
+
+button {
+    outline: none !important;
+}
+
+textarea {
+    resize: none;
+}
+
+input:focus,
+input:active,
+input:visited {
+    box-shadow: none !important;
+    outline: none !important;
+    border-color: #64257D !important;
+}
+
+.adminLoginButton {
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    border-color: #64257D;
+    background-color: white;
+    color: #64257D;
+    transition: all 0.5s;
+    font-size: 17px;
+}
+
+.adminLoginRadioWrap {
+    text-align: left;
+}
+
+.adminLoginButton:hover {
+    font-size: 17px;
+    border-color: white;
+    background-color: #64257D;
+    color: white;
+    transition: all 0.5s;
+}
+
+.maskForm {
+    display: flex;
+    align-items: center;
+    padding-bottom: 3em;
+}
+
+.maskInput {
+    height: 70px;
+    font-size: 25px;
+    text-align: center;
+}
+
+.maskWrap {
+    text-align: center;
+    margin-top: 8em;
+}
+
+.maskLabel {
+    color: white;
+}
+
+.maskFormInputWrap {
+    text-align: left;
+}
+
+.maskLoginButton {
+    height: 70px;
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border-color: #ca004b;
+    background-color: #ca004b;
+    color: white;
+    margin-top: 22px;
+    font-size: 17px;
+}
+
+.mainNav {
+    background-color: #64257D;
+    padding: 1em 0;
+    z-index: 999;
+}
+
+.mainNavWrap {
+    padding-left: 12em;
+}
+
+.mainNavRepaierUl {
+    float: left;
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+    clear: right;
+}
+
+.mainNavRepaierUl li:nth-child(1) {
+    font-size: 13px;
+    color: white;
+    display: inline-block;
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+.mainNavRepaierUl li:nth-child(2) {
+    font-size: 16px;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.mainNavBarUL {
+    float: right;
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.mainNavBarUL li a {
+    color: white !important;
+}
+
+.mainNavBarUL li:nth-child(1) {
+    font-size: 17px;
+    color: white;
+    display: inline-block;
+    ;
+    font-weight: bold;
+}
+
+.mainNavBarUL li:nth-child(2) {
+    font-size: 17px;
+    padding-left: 20px;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.mainLeftWrap {
+    background-color: #64257D;
+    height: 100vh;
+}
+
+.mainRightBar {
+    background-color: white;
+}
+
+.mainLeftWrapCol {
+    padding-left: 0;
+}
+
+.mainLeftUl {
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.mainLeftLi {
+    font-size: 17px;
+    padding-left: 20px;
+    color: white;
+    font-weight: bold;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.mainLeftLi a{
+    color: white !important;
+}
+.mainLeftLi a:hover{
+    text-decoration: none;
+}
+.mainLeftLi i {
+    margin-right: 7px;
+}
+
+.mainLeftLiActive {
+    background-color: #ca004b;
+}
+
+.addNewUserWrap {
+    width: 400px;
+    margin: 1em auto 0;
+}
+.addNewUserWrapForTable{
+    width: 100%;
+}
+.addNewUserButton {
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    border-color: #64257D;
+    background-color: white;
+    color: #64257D;
+    transition: all 0.5s;
+    font-size: 17px;
+}
+.chooseRepairerButton{
+    border-radius: 4px;
+    border-color: #64257D;
+    background-color: #64257D;
+    color: white;
+    transition: all 0.5s;
+    font-size: 17px; 
+}
+.chooseRepairerButton:hover{
+    background-color: white;
+    color: #64257D;
+}
+.addNewUserButton:hover {
+    font-size: 17px;
+    border-color: white;
+    background-color: #64257D;
+    color: white;
+    transition: all 0.5s;
+}
+
+.addNewUserLabel {
+    color: black;
+}
+
+.addNewUserInfoUl {
+    padding-left: 0;
+    list-style: none;
+}
+
+.addNewUserInfoUl li:nth-child(1) {
+    font-weight: bold;
+}
+
+.addNewUserInfoUl li:nth-child(2) {
+    float: right;
+}
+
+.addNewUserInfoUl li {
+    display: inline-block;
+}
+
+.addNewUserInfoUlBig li {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.addNewUserInfoWrap {
+    width: 800px;
+    margin: 3em auto 0;
+}
+
+.infoBorder {
+    border: 1px solid black;
+    min-height: 220px;
+    padding: 1em;
+}
+
+.infoBorderRepairer{
+    border: 1px solid black;
+    min-height: 150px;
+    padding: 1em;
+}
+.addNewUserInfoButtonWrap {
+    text-align: center;
+    border: none !important;
+}
+.addNewUserButtonsAlign{
+    text-align: right;
+}
+
+.addNewUserInfoWrapSecond,
+.addNewUserInfoWrapThird,
+.addNewUserInfoWrapFourth,
+.addNewUserInfoWrapFifth {
+    display: none;
+}
+
+.addNewUserInfoColMargin{
+    margin: 1em 0;
+}
+
+#qrcode {
+    width: 120px;
+    height: 120px;
+}
+
+@media print {
+    .mainNav,
+    .mainLeftWrapCol,
+    .addNewUserInfoWrapFirst,
+    .addNewUserInfoWrapSecond,
+    .addNewUserInfoButtonWrap {
+        display: none;
+    }
+    /* .infoBorderSecond {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        right: 0;
+    }
+    .infoBorderFirst {
+        position: absolute;
+        top: 350px;
+        left: 0;
+        right: 0;
+    } */
+    .addNewUserInfoUl {
+        border-bottom: 1px solid black;
+    }
+    #qrcode {
+        position: absolute;
+        left: 0px;
+        top: 200px;
+    }
+}
+
+.tableWrap {
+    width: 100%;
+    margin: 3em auto 0;
+}
+
+#myTable tbody tr td a {
+    color: #333 !important;
+}
+
+#myTable tbody tr td a:Hover {
+    color: #64257D !important;
+    text-decoration: none;
+}
+
+#myTable tbody tr td:nth-child(3){
+    max-width: 120px;;
+}
+
+
+
+
+.moreRow{
+    background-color: #dadada;
+    border-radius: 4px;
+}
+.moreUl{
+    padding-left: 0;
+    list-style: none;
+}
+
+.moreUl li{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+
+.moreUl li:nth-child(2) {
+    float: right;
+}
+.moreButtons{
+    border-radius: 4px;
+    border-color: #64257D;
+    background-color: #64257D;
+    color: white;
+    transition: all 0.5s;
+    font-size: 17px;
+    font-weight: normal !important;
+}
+.moreCol{
+    padding: 1em;
+}
+
+.moreUpdateUL{
+    padding-left: 0;
+    list-style: none;
+}
+
+.moreUpdateUL li{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.moreUpdateUL li:nth-child(2) {
+    float: right;
+}
+
+.moreUpdateULComment{
+    padding-left: 0;
+    list-style: none;
+}
+.moreUpdateULComment li:nth-child(1) {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.moreUpdateULComment li{
+    display: inline-block;
+}
+.moreUpdateCol{
+    border-top: 1px solid #333;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.moreWrap{
+    max-height: 100vh;
+    overflow-y: scroll;
+}
+.moreWrap::-webkit-scrollbar {
+	width: 5px;
+	background: white;
+}
+
+.moreWrap::-webkit-scrollbar-thumb {
+    background: #64257D; 
+    border-radius: 4px;
+}
+
+.updateModalButton{
+    border-radius: 4px;
+    border-color: #64257D;
+    background-color: #64257D;
+    color: white;
+    transition: all 0.5s;
+    font-size: 17px;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.addRepairerWrap{
+   width: 400px;
+   margin: 0 auto;
+}
+
+.addRepairerWrap input{
+    width: 100%;
+}
+
+.addRepairerButton{
+    border-color: #64257D;
+    background-color: #64257D;
+    color: #ffffff;
+    font-size: 17px;
+}
+.addRepairerButton:hover {
+    font-size: 17px;
+    background-color: white;
+    border-color: #64257D;
+    color: #64257D;
+    transition: all 0.5s;
+}
+.clientsWrap{
+    width: 100%;
+    margin: 0 auto;
+}
+.changePasswordButton{
+    border-color: #64257D;
+    background-color: #64257D;
+    color: #ffffff;
+    font-size: 15px;
+}
+.changePasswordButton:hover {
+    font-size: 15px;
+    background-color: white;
+    border-color: #64257D;
+    color: #64257D;
+    transition: all 0.5s;
+}
+.mainNavBarUL .fa-cog:hover{
+    cursor: pointer;
+}
+.userRow{
+    background-color: white;
+    border-radius: 5px;
+    margin: 2em auto;
+}
+
+.userIntro{
+    color: white;
+    letter-spacing: 1px;
+    text-align: center;
+}

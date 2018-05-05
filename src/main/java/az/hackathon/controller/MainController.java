@@ -2,6 +2,7 @@ package az.hackathon.controller;
 
 
 import az.hackathon.model.Repair;
+import az.hackathon.model.Role;
 import az.hackathon.model.Staff;
 import az.hackathon.service.RepairService;
 import az.hackathon.service.StaffService;
@@ -13,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -40,6 +43,12 @@ public class MainController {
         return "login";
     }
 
+    @RequestMapping("/logout")
+    public String logoutHandler(HttpSession session){
+       session.invalidate();
+       return "redirect: /login";
+    }
+
     @RequestMapping("/user/search")
     public String userPageHandler(){
         return "user-search";
@@ -47,7 +56,11 @@ public class MainController {
 
     @RequestMapping("/staff/main")
     public String staffPageHandler(Model model, HttpSession session){
-        return "staff-main";
+        Staff staff = (Staff) session.getAttribute("staff");
+        List<Repair> repairList = repairService.getRepairListByStaffId(staff.getIdStaff());
+        System.out.println(repairList);
+        model.addAttribute("repairList", repairList);
+        return "repairer-all";
     }
 
     @RequestMapping("/staff/repair/{id}")
@@ -64,7 +77,7 @@ public class MainController {
 
         model.addAttribute("repair", repair);
 
-        return "staff-repair";
+        return "repairer-preview";
     }
 
 
@@ -74,12 +87,23 @@ public class MainController {
     }
 
     @RequestMapping("/doLogin")
-    public String doLogin(@ModelAttribute("staff")Staff staff, HttpSession session){
+    public String doLogin(@RequestParam("username") String username,
+                          @RequestParam("pwd") String password,
+                          @RequestParam("optradio") int idRole,
+                          HttpSession session){
+
         //TODO: getter setter for Staff
-        if (!Validator.validate(staff.getUsername(), staff.getPassword(), staff.getRole().getIdRole())){
+        if (!Validator.validate(username, password, idRole)){
             session.setAttribute("message", Constants.ERROR_EMPTY_INPUTS);
             return "redirect: /login";
         }
+
+        Staff staff = new Staff();
+        staff.setUsername(username);
+        staff.setPassword(password);
+        Role role = new Role();
+        role.setIdRole(idRole);
+        staff.setRole(role);
 
         Staff authorizedStaff = staffService.getStaffByUsernameAndPassword(staff);
 
@@ -89,9 +113,9 @@ public class MainController {
         }
 
 
-        session.setAttribute("staff", staff);
+        session.setAttribute("staff", authorizedStaff);
 
-         if (staff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
+         if (authorizedStaff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
              return "redirect: /staff/main";
          }else{
              return "redirect: /manager/main";
