@@ -33,6 +33,16 @@ public class Repair {
 
     private int active;
 
+    private String trackingNumber;
+
+
+    public String getTrackingNumber() {
+        return trackingNumber;
+    }
+
+    public void setTrackingNumber(String trackingNumber) {
+        this.trackingNumber = trackingNumber;
+    }
 
     public int getIdRepair() {
         return idRepair;
