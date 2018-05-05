@@ -4,6 +4,7 @@ package az.hackathon.controller;
 import az.hackathon.model.Progress;
 import az.hackathon.service.RepairService;
 import az.hackathon.util.Constants;
+import az.hackathon.util.MailService;
 import az.hackathon.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class RepairController {
 
     @Autowired
     RepairService repairService;
+    @Autowired
+    MailService mailService;
 
     @RequestMapping("/updateStatus")
     public String updateRepairStatus(@RequestParam("id") int repairId,
@@ -52,7 +55,8 @@ public class RepairController {
             // TODO: send email to user
             //
             ThreadPoolExecutor executor = new ThreadPoolExecutor(10,10,1, TimeUnit.SECONDS,  new LinkedBlockingQueue<Runnable>());
-            executor.execute(() -> System.out.println("MAil Sent"));
+            executor.execute(() -> mailService.sendEmail("Azercell",userEmail, "Temir statusunuz yenilendi",
+                    "Status faizi: "+percent+"%\n"+"Temircinin sherhi: "+comment+"\n"+"Yenilenme tarixi: "+new Date()));
         }
 
         if (Validator.validate(userPhone)){

@@ -237,11 +237,12 @@
                     <h4 class="modal-title">Təmiri dayandırın</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="/cancelRepair">
                         <div class="form-inline">
                             <p>Təmir dayandırılsın?</p>
+                            <input type="hidden" value="${repair.idRepair}" name="id">
                             <button class="updateModalButton" type="submit">Təsdiqlə</button>
-                            <button class="updateModalButton" type="submit">Ləğv et </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Ləğv et </button>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,7 @@
 package az.hackathon.service;
 
 
+import az.hackathon.model.Device;
 import az.hackathon.model.Progress;
 import az.hackathon.model.Repair;
 
@@ -24,4 +25,8 @@ public interface RepairService {
     List<Repair> getArchiveRepairListByStaffId(int id);
 
     Repair getArchiveRepairById(int id);
+
+    List<Device> getAllDevice();
+
+    boolean createNewRepair(Repair repair);
 }
