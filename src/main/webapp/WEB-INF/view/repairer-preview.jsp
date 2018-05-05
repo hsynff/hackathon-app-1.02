@@ -137,19 +137,19 @@
                             <div class="col-md-6">
                                 <ul class="moreUpdateUL">
                                     <li>Təmir statusu:</li>
-                                    <li>50 %</li>
+                                    <li>${progList.percent} %</li>
                                 </ul>
                             </div>
                             <div class="col-sm-6">
                                 <ul class="moreUpdateUL">
                                     <li>Yenilənmə tarixi:</li>
-                                    <li>05.05.2018 16:10</li>
+                                    <li>${progList.date}</li>
                                 </ul>
                             </div>
                             <div class="col-md-12">
                                 <ul class="moreUpdateULComment">
                                     <li>Rəy:</li>
-                                    <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates beatae </li>
+                                    <li>${progList.comment} </li>
                                 </ul>
                             </div>
                         </div>
