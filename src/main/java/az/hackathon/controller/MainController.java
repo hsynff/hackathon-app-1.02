@@ -1,14 +1,14 @@
 package az.hackathon.controller;
 
 
-import az.hackathon.model.Repair;
-import az.hackathon.model.Role;
-import az.hackathon.model.Staff;
-import az.hackathon.model.User;
+import az.hackathon.model.*;
 import az.hackathon.service.RepairService;
+import az.hackathon.service.SecurityService;
 import az.hackathon.service.StaffService;
 import az.hackathon.service.UserService;
 import az.hackathon.util.Constants;
+import az.hackathon.util.Crypto;
+import az.hackathon.util.Filter;
 import az.hackathon.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +33,12 @@ public class MainController {
     UserService userService;
 
 
+
+
+
+
     @RequestMapping("/")
-    public String indexPageHandler(){
+    public String indexPageHandler(HttpSession session){
         return "redirect:/login";
     }
 
@@ -65,6 +69,7 @@ public class MainController {
 
     @RequestMapping("/user/track")
     public String userTrackPageHandler(@RequestParam("t")String trackingNumber, HttpSession session, Model model){
+        System.out.println(trackingNumber);
         Repair repair = repairService.getRepairByTrackingNumber(trackingNumber);
 
         if (repair==null){
@@ -240,7 +245,11 @@ public class MainController {
 
         Staff staff = new Staff();
         staff.setUsername(username);
-        staff.setPassword(password);
+        try {
+            staff.setPassword(Crypto.pwdToHash(password));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Role role = new Role();
         role.setIdRole(idRole);
         staff.setRole(role);

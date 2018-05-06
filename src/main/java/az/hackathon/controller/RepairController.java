@@ -134,7 +134,7 @@ public class RepairController {
         user.setIdUser(idUser);
         repair.setUser(user);
         Device device = new Device();
-        device.setIdDevice(idDevice);
+        device.setIdDevice(idModel);
         repair.setDevice(device);
         Staff staff = new Staff();
         staff.setIdStaff(idRepairer);

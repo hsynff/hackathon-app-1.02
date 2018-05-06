@@ -4,6 +4,7 @@ import az.hackathon.model.Role;
 import az.hackathon.model.Staff;
 import az.hackathon.service.StaffService;
 import az.hackathon.util.Constants;
+import az.hackathon.util.Crypto;
 import az.hackathon.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,17 +38,29 @@ public class StaffController {
 
 
         String oldPassword = staff.getPassword();
-        if (!oldPassword.equals(oldPwd)){
-            session.setAttribute("message", Constants.ERROR_INVALID_CREDENTIALS);
-            if (staff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
-                return "redirect:/staff/main";
-            }else{
-                return "redirect:/staffManager/main";
+        try {
+            if (!oldPassword.equals(Crypto.pwdToHash(oldPwd))){
+                session.setAttribute("message", Constants.ERROR_INVALID_CREDENTIALS);
+                if (staff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
+                    return "redirect:/staff/main";
+                }else{
+                    return "redirect:/staffManager/main";
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        boolean result = staffService.updateStaffPassword(newPwd, staff.getIdStaff());
-        staff.setPassword(newPwd);
+        try {
+            boolean result = staffService.updateStaffPassword(Crypto.pwdToHash(newPwd), staff.getIdStaff());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            staff.setPassword(Crypto.pwdToHash(newPwd));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         session.setAttribute("staff",staff);
 
         if (staff.getRole().getIdRole()==Constants.ROLE_ID_REPAIRER){
@@ -73,7 +86,11 @@ public class StaffController {
         staff.setFullName(fullName);
         staff.setContactNumber(contactNumber);
         staff.setUsername(username);
-        staff.setPassword(pwd);
+        try {
+            staff.setPassword(Crypto.pwdToHash(pwd));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Role role = new Role();
         role.setIdRole(1);
         staff.setRole(role);

@@ -1,33 +1,25 @@
-package az.hackathon.filter;
+package az.hackathon.util;
 
 import az.hackathon.model.Action;
 import az.hackathon.model.Staff;
 import az.hackathon.service.SecurityService;
-import az.hackathon.service.SecurityServiceImpl;
-import az.hackathon.util.Constants;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 
-@WebFilter
-public class SecurityFilter implements Filter {
-    public void destroy() {
-    }
+public class Filter {
 
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request=(HttpServletRequest)req;
-        HttpServletResponse response=(HttpServletResponse)resp;
+    public static boolean check(HttpSession session, HttpServletRequest request, HttpServletResponse response, SecurityService securityService){
+
         String path=request.getServletPath();
-        SecurityService securityService=new SecurityServiceImpl();
+        if (path.equals("/") || path.equals("/login")){
+            return true;
+        }
 
-        HttpSession session=request.getSession();
         if(session.getAttribute("staff")==null){
-            List<Action> actions=securityService.getActionListByRoleId(Constants.DEFAULT_ROLE_ID);
+            List<Action> actions= securityService.getActionListByRoleId(Constants.DEFAULT_ROLE_ID);
             boolean validateAction=false;
             for(Action action :actions){
                 if(path.contains(action.getActionName())){
@@ -36,9 +28,9 @@ public class SecurityFilter implements Filter {
                 }
             }
             if(validateAction){
-                chain.doFilter(req,resp);
+               return true;
             }else{
-                response.sendRedirect("/login");
+              return false;
 
             }
         }else {
@@ -55,24 +47,19 @@ public class SecurityFilter implements Filter {
             }
 
             if(validateAction){
-                chain.doFilter(req,resp);
+               return true;
             }else{
                 if(roleId==2){
-                    response.sendRedirect("/staffManager/main");
+                   return false;
                 }
 
                 if(roleId==1){
-                    response.sendRedirect("/staff/main");
+                   return false;
                 }
 
 
             }
         }
-
+        return false;
     }
-
-    public void init(FilterConfig config) throws ServletException {
-
-    }
-
 }

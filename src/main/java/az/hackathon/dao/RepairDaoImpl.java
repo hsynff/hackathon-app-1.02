@@ -78,7 +78,7 @@ public class RepairDaoImpl implements RepairDao {
             Repair repair=result.get(0);
             repair.setProgresses(progressList);
             return repair;
-
+//fixme
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -398,7 +398,7 @@ public class RepairDaoImpl implements RepairDao {
                 "join model m on d.id_model=m.id_model join progress p on r.id_repair=p.id_repair join staff u on r.id_staff=u.id_staff \n" +
                 "where r.tracking_number=? and r.active=1";
         try{
-           Repair result= jdbcTemplate.query(sql, new Object[]{trackingNumber}, new RowMapper<Repair>() {
+           List<Repair> result= jdbcTemplate.query(sql, new Object[]{trackingNumber}, new RowMapper<Repair>() {
                @Override
                public Repair mapRow(ResultSet rs, int i) throws SQLException {
                    Repair r=new Repair();
@@ -430,7 +430,15 @@ public class RepairDaoImpl implements RepairDao {
                    return r;
 
                }
-           }).get(0);
+           });
+
+            List<Progress> progressList=new ArrayList<>();
+            for(Repair repair:result){
+                progressList.add(repair.getProgress());
+            }
+             Repair repair=result.get(0);
+             repair.setProgresses(progressList);
+             return repair;
 
         }catch (Exception e){
             e.printStackTrace();

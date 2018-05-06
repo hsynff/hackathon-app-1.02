@@ -18,6 +18,9 @@ public class SecurityDaoImpl implements SecurityDao {
 
     @Override
     public List<Action> getActionListByRoleId(int idRole) {
+
+
+
         String sql="select * from action a join role_action ra on a.id_action=ra.id_action \n" +
                 "join role r on ra.id_role=r.id_role where r.id_role=?";
         try{
