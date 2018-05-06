@@ -342,7 +342,7 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public List<Model> getAllModel() {
-        String sql="select * from device";
+        String sql="select * from model";
 
         try{
 

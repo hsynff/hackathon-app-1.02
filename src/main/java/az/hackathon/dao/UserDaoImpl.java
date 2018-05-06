@@ -16,7 +16,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -113,6 +116,20 @@ public class UserDaoImpl implements UserDao {
                     return u;
                 }
             });
+
+            Map<Integer,User> countRepair=new HashMap<>();
+
+            for(User user:result){
+                if(countRepair.get(user.getIdUser())==null){
+                    countRepair.put(user.getIdUser(),user);
+                    user.setRepairs(new ArrayList<>());
+                    user.getRepairs().add(user.getRepair());
+                }else {
+                    countRepair.get(user.getIdUser()).getRepairs().add(user.getRepair());
+
+                }
+            }
+
 
             return result;
         }catch (Exception e){

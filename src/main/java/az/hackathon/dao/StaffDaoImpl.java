@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class StaffDaoImpl implements StaffDao {
@@ -93,6 +96,19 @@ public class StaffDaoImpl implements StaffDao {
                     return s1;
                 }
             });
+
+         Map<Integer,Staff> countRepair=new HashMap<>();
+
+         for(Staff staff:result){
+             if(countRepair.get(staff.getIdStaff())==null){
+                 countRepair.put(staff.getIdStaff(),staff);
+                 staff.setRepairs(new ArrayList<>());
+                 staff.getRepairs().add(staff.getRepair());
+             }else {
+                countRepair.get(staff.getIdStaff()).getRepairs().add(staff.getRepair());
+
+             }
+         }
 
          return  result;
 
