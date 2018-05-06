@@ -10,7 +10,7 @@
     <div class="container mainNavWrap">
         <div class="row">
             <ul class="mainNavRepaierUl">
-                <li>Təmirçi:</li>
+                <li>Menecer:</li>
                 <li>${staff.fullName}</li>
             </ul>
             <ul class="mainNavBarUL">

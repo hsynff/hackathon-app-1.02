@@ -25,6 +25,26 @@ public class User {
 
     private Repair repair;
 
+    private int activeTasks;
+
+    private int deactiveTasks;
+
+    public int getActiveTasks() {
+        return activeTasks;
+    }
+
+    public void setActiveTasks(int activeTasks) {
+        this.activeTasks = activeTasks;
+    }
+
+    public int getDeactiveTasks() {
+        return deactiveTasks;
+    }
+
+    public void setDeactiveTasks(int deactiveTasks) {
+        this.deactiveTasks = deactiveTasks;
+    }
+
     public Repair getRepair() {
         return repair;
     }

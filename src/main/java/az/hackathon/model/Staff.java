@@ -24,6 +24,25 @@ public class Staff {
 
     private Repair repair;
 
+    private int activeTasks;
+
+    private int deactiveTasks;
+
+    public int getActiveTasks() {
+        return activeTasks;
+    }
+
+    public void setActiveTasks(int activeTasks) {
+        this.activeTasks = activeTasks;
+    }
+
+    public int getDeactiveTasks() {
+        return deactiveTasks;
+    }
+
+    public void setDeactiveTasks(int deactiveTasks) {
+        this.deactiveTasks = deactiveTasks;
+    }
 
     private List<Repair> repairs;
 
@@ -89,5 +108,29 @@ public class Staff {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Staff staff = (Staff) o;
+
+        return idStaff == staff.idStaff;
+    }
+
+    @Override
+    public int hashCode() {
+        return idStaff;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "idStaff=" + idStaff +
+                ", fullName='" + fullName + '\'' +
+                ", repairs=" + repairs +
+                '}';
     }
 }

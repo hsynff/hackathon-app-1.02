@@ -1,6 +1,8 @@
 package az.hackathon.controller;
 
 
+import az.hackathon.model.Device;
+import az.hackathon.model.Model;
 import az.hackathon.model.Progress;
 import az.hackathon.service.RepairService;
 import az.hackathon.util.Constants;
@@ -11,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -74,7 +79,7 @@ public class RepairController {
     // Sets repair active=0 and adds end_date timestamp
     @RequestMapping("/cancelRepair")
     public String cancelRepair(@RequestParam("id") int repairId, HttpSession session){
-        int active = 0;
+        int active = 2;
         Date endDate = new Date();
 
         boolean result = repairService.updateRepairActiveById(repairId, active, endDate);
@@ -93,12 +98,14 @@ public class RepairController {
                                @RequestParam("email") String email,
                                @RequestParam("phone") String phone,
                                @RequestParam("address") String address,
+                               @RequestParam("idUser") int idUser,
                                @RequestParam("brand") int idDevice,
                                @RequestParam("model") int idModel,
                                @RequestParam("title") String title,
                                @RequestParam("price") int price,
                                @RequestParam("idRepairer") int idRepairer,
-                               @RequestParam("isReturningUser") int isReturningUser){
+                               @RequestParam("isReturningUser") int isReturningUser,
+                               @RequestParam("trackingNumber") String trackingNumber){
 
 
 
@@ -109,9 +116,42 @@ public class RepairController {
 
     }
 
-    @RequestMapping("/getUserByFin")
-    public String getUserByFin(@RequestParam("fin") String fin){
-            return null;
+    @RequestMapping("/getAllModel")
+    public String getAllModel(org.springframework.ui.Model model){
+        List<Model> modelList = repairService.getAllModel();
+
+        List<Device> deviceList = new ArrayList<>();
+        for (Model m : modelList){
+
+        }
+
+        model.addAttribute("modelList",modelList);
+
+        return "/view_elements/device_details";
+
     }
+
+    @RequestMapping("/getDeviceByModelId")
+    public String getDeviceByModelId(org.springframework.ui.Model model,
+                                     @RequestParam("id") int id){
+
+        List<Device> deviceList = repairService.getDeviceByModelId(id);
+
+        model.addAttribute("deviceList",deviceList);
+
+        return "/view_elements/device_model_select";
+
+    }
+
+    @RequestMapping("/generateQR")
+    @ResponseBody
+    public String generateQR(){
+
+
+        return null;
+    }
+
+
+
 
 }

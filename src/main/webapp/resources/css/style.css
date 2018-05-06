@@ -311,8 +311,11 @@ input:visited {
     .mainLeftWrapCol,
     .addNewUserInfoWrapFirst,
     .addNewUserInfoWrapSecond,
-    .addNewUserInfoButtonWrap {
-        display: none;
+    .addNewUserInfoButtonWrap,
+    .addNewUserButtonsAlign,
+    .pagePrintTitleRemover
+    {
+        display: none !important;
     }
     /* .infoBorderSecond {
         position: absolute;

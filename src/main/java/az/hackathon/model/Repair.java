@@ -132,4 +132,12 @@ public class Repair {
     public void setActive(int active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return "Repair{" +
+                "idRepair=" + idRepair +
+                ", active=" + active +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package az.hackathon.util;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
+import java.util.Random;
 
 public class Crypto {
 
@@ -22,5 +23,16 @@ public class Crypto {
         byte[] result = md.digest();
 
         return DatatypeConverter.printBase64Binary(result);
+    }
+
+    public static String generateTrackingNumber(){
+        Random random = new Random();
+
+        int part1 = random.nextInt(900)+100;
+        int part2 = random.nextInt(900)+100;
+        int part3 = random.nextInt(900)+100;
+
+        String result = part1+"-"+part2+"-"+part3;
+        return result;
     }
 }
