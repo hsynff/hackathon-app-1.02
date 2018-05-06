@@ -6,13 +6,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -325,17 +326,34 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public boolean createNewRepair(Repair repair) {
-        String sql="insert into repair(id_user,id_device,id_staff,price,title,start_date,active,tracking_number)"+
+       final String sql="insert into repair(id_user,id_device,id_staff,price,title,start_date,active,tracking_number)"+
                 " values(?,?,?,?,?,?,?,?)";
         try{
-            jdbcTemplate.update(sql,new Object[]{repair.getUser().getIdUser(),
-                    repair.getDevice().getIdDevice(),
-            repair.getStaff().getIdStaff(),
-                    repair.getPrice(),
-                    repair.getTitle(),
-                    repair.getStartDate(),
-                    repair.getActive(),
-                    repair.getTrackingNumber()});
+
+
+
+            KeyHolder holder = new GeneratedKeyHolder();
+            jdbcTemplate.update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                    PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id_repair"});
+                    ps.setInt(1, repair.getUser().getIdUser());
+                    ps.setInt(2, repair.getDevice().getIdDevice());
+                    ps.setInt(3, repair.getStaff().getIdStaff());
+                    ps.setInt(4,repair.getPrice());
+                    ps.setString(5,repair.getTitle());
+                    ps.setDate(6,new java.sql.Date(repair.getStartDate().getTime()));
+                    ps.setInt(7,repair.getActive());
+                    ps.setString(8,repair.getTrackingNumber());
+                    return ps;
+                }
+            }, holder);
+
+            int index= holder.getKey().intValue();
+
+            String q="insert into progress(percent,id_repair) values(?,?)";
+
+             jdbcTemplate.update(q,new Object[]{0,index});
 
             return true;
         }catch (Exception e){
@@ -377,7 +395,7 @@ public class RepairDaoImpl implements RepairDao {
         String sql="select r.id_repair,m.model,d.brand,p.percent,r.price,r.start_date,u.full_name,u.contact_number,\n" +
                 "r.tracking_number,\n" +
                 "r.title,p.comment,p.date  from repair r join device d on r.id_device=d.id_device \n" +
-                "join model m on d.id_model=m.id_model join progress p on r.id_repair=p.id_repair join staff u on r.id_user=u.id_staff \n" +
+                "join model m on d.id_model=m.id_model join progress p on r.id_repair=p.id_repair join staff u on r.id_staff=u.id_staff \n" +
                 "where r.tracking_number=? and r.active=1";
         try{
            Repair result= jdbcTemplate.query(sql, new Object[]{trackingNumber}, new RowMapper<Repair>() {
