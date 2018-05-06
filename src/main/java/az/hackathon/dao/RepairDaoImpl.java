@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -367,6 +368,50 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public Repair getRepairByTrackingNumber(String trackingNumber) {
+        String sql="select r.id_repair,m.model,d.brand,p.percent,r.price,r.start_date,u.full_name,u.contact_number,\n" +
+                "r.tracking_number,\n" +
+                "r.title,p.comment,p.date  from repair r join device d on r.id_device=d.id_device \n" +
+                "join model m on d.id_model=m.id_model join progress p on r.id_repair=p.id_repair join staff u on r.id_user=u.id_staff \n" +
+                "where r.tracking_number=? and r.active=1 and u.id_role=1";
+        try{
+           Repair result= jdbcTemplate.query(sql, new Object[]{trackingNumber}, new RowMapper<Repair>() {
+               @Override
+               public Repair mapRow(ResultSet rs, int i) throws SQLException {
+                   Repair r=new Repair();
+                   r.setIdRepair(rs.getInt("id_repair"));
+                   Model m=new Model();
+                   m.setModel(rs.getString("model"));
+
+                   Device device=new Device();
+                   device.setModel(m);
+                   device.setBrand(rs.getString("brand"));
+                   r.setDevice(device);
+                   Progress progress=new Progress();
+                   progress.setPercent(rs.getInt("percent"));
+                   progress.setComment(rs.getString("comment"));
+                   progress.setDate(rs.getDate("date"));
+                   r.setTitle(rs.getString("title"));
+                   r.setProgress(progress);
+                   r.setPrice(rs.getInt("price"));
+                   r.setStartDate(rs.getDate("start_date"));
+                   Staff staff=new Staff();
+                   staff.setFullName(rs.getString("full_name"));
+
+
+                   staff.setContactNumber(rs.getString("contact_number"));
+
+                   r.setStaff(staff);
+                   r.setTrackingNumber(rs.getString("tracking_number"));
+
+                   return r;
+
+               }
+           }).get(0);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return null;
     }
 }
