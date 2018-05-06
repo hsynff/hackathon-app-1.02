@@ -71,7 +71,7 @@ public class StaffDaoImpl implements StaffDao {
 
     @Override
     public List<Staff> getAllStaff() {
-        String sql="select * from staff s join repair r on s.id_staff=r.id_staff";
+        String sql="select * from staff s left join repair r on s.id_staff=r.id_staff where s.id_role=1";
 
         try{
          List<Staff> result= jdbcTemplate.query(sql, new RowMapper<Staff>() {
@@ -106,6 +106,20 @@ public class StaffDaoImpl implements StaffDao {
 
     @Override
     public boolean addNewRepairer(Staff staff) {
+        String sql="insert into staff(full_name,contact_number,username,password,id_role)"+
+                "  values(?,?,?,?,?)";
+
+        try{
+            jdbcTemplate.update(sql,new Object[]{staff.getFullName(),staff.getContactNumber(),staff.getUsername(),staff.getPassword(),staff.getRole().getIdRole()});
+            
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
         return false;
     }
 }
