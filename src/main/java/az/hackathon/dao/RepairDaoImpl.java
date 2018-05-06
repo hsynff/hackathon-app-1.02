@@ -167,7 +167,7 @@ public class RepairDaoImpl implements RepairDao {
 
     @Override
     public int getTrackingNumberCount(String trackingNumber) {
-        String sql="select count(*) as count from repair where tracking_number=?";
+        String sql="select count(*) as count from repair where tracking_number=? and active=1";
 
         try{
             Integer result= jdbcTemplate.query(sql,new Object[]{trackingNumber}, new RowMapper<Integer>() {
@@ -328,8 +328,14 @@ public class RepairDaoImpl implements RepairDao {
         String sql="insert into repair(id_user,id_device,id_staff,price,title,start_date,active,tracking_number)"+
                 " values(?,?,?,?,?,?,?,?)";
         try{
-            jdbcTemplate.update(sql,new Object[]{repair.getUser().getIdUser(),repair.getDevice().getIdDevice(),
-            repair.getStaff().getIdStaff(),repair.getPrice(),repair.getTitle(),repair.getStartDate(),repair.getActive(),repair.getTrackingNumber()});
+            jdbcTemplate.update(sql,new Object[]{repair.getUser().getIdUser(),
+                    repair.getDevice().getIdDevice(),
+            repair.getStaff().getIdStaff(),
+                    repair.getPrice(),
+                    repair.getTitle(),
+                    repair.getStartDate(),
+                    repair.getActive(),
+                    repair.getTrackingNumber()});
 
             return true;
         }catch (Exception e){
@@ -372,7 +378,7 @@ public class RepairDaoImpl implements RepairDao {
                 "r.tracking_number,\n" +
                 "r.title,p.comment,p.date  from repair r join device d on r.id_device=d.id_device \n" +
                 "join model m on d.id_model=m.id_model join progress p on r.id_repair=p.id_repair join staff u on r.id_user=u.id_staff \n" +
-                "where r.tracking_number=? and r.active=1 and u.id_role=1";
+                "where r.tracking_number=? and r.active=1";
         try{
            Repair result= jdbcTemplate.query(sql, new Object[]{trackingNumber}, new RowMapper<Repair>() {
                @Override

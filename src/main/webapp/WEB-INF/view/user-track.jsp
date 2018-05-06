@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Daxil ol</title>
+    <title>İzləmə</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Font-awesome CSS -->
@@ -17,7 +17,6 @@
 </head>
 
 <body class="adminLoginBody">
-
 <c:if test="${message ne null}">
     <script type="text/javascript">
         alert('${message}');
@@ -27,34 +26,22 @@
 
     <div class="container">
         <div class="row ">
-            <div class="col-sm-offset-3 col-sm-6 centerWrap">
+            <div class="col-sm-offset-1 col-sm-10 maskWrap">
                 <br>
-                <h4 class="adminLoginIntro">Daxil olun</h4>
                 <br>
-                <form action="/doLogin" method="post">
-                    <div class="form-group">
-                        <input placeholder="İstifadəçi adınızı daxil edin" type="text" class="form-control adminLoginUsername" name="username">
+                <form action="/user/track" class="maskForm">
+
+                    <div class="col-sm-9 maskFormInputWrap">
+                        <label class="maskLabel">İzləmə kodu</label>
+                        <input placeholder="123-456-789" type="tel" class="form-control maskInput" name="t" class="">
                     </div>
-                    <br>
-                    <div class="form-group">
-                        <input placeholder="Şifrənizi daxil edin" type="password" class="form-control adminLoginPassword" name="pwd">
-                    </div>
-                    <br>
-                    <div class="form-group adminLoginRadioWrap">
-                        <label class="radio-inline">
-                            <input type="radio" checked name="optradio" value="1">Təmirçi</label>
-                        <label class="radio-inline">
-                            <input type="radio" name="optradio" value="2">Menecer</label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="adminLoginButton btn">Daxil ol</button>
+                    <div class="col-sm-3">
+                        <button type="submit" class="maskLoginButton btn">Axtar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
 
 
 
@@ -66,6 +53,17 @@
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Bootstrap JavaScript -->
+    <!-- MASK -->
+    <script src="${pageContext.request.contextPath}/resources/dist/jquery.inputmask.bundle.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/dist/inputmask/phone-codes/phone.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/dist/inputmask/phone-codes/phone-be.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/dist/inputmask/phone-codes/phone-ru.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".maskInput").inputmask("999-999-999"); //static mask
+        });
+    </script>
+    <!-- MASK -->
 </body>
 
 </html>

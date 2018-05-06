@@ -55,14 +55,24 @@ public class MainController {
     }
 
     @RequestMapping("/user/search")
-    public String userPageHandler(){
-        return "user-search";
+    public String userPageHandler(HttpSession session, Model model){
+        if (session.getAttribute("message")!=null){
+            model.addAttribute("message", session.getAttribute("message"));
+            session.removeAttribute("message");
+        }
+        return "user-track";
     }
 
     @RequestMapping("/user/track")
-    public String userTrackPageHandler(@RequestParam("t")String trackingNumber){
+    public String userTrackPageHandler(@RequestParam("t")String trackingNumber, HttpSession session, Model model){
+        Repair repair = repairService.getRepairByTrackingNumber(trackingNumber);
 
-        return "user-track";
+        if (repair==null){
+            session.setAttribute("message", Constants.ERROR_INVALID_TRACKING_NUMBER);
+            return "redirect:/user/search";
+        }
+        model.addAttribute("repair", repair);
+        return "user-search";
     }
 
     @RequestMapping("/staff/main")

@@ -81,7 +81,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }, holder);
 
-            return (Integer)holder.getKey();
+            return holder.getKey().intValue();
 
         }catch (Exception e){
 

@@ -32,7 +32,7 @@
             $('.newTask').addClass('mainLeftLiActive');
             $('.clients').removeClass('mainLeftLiActive');
         </script>
-        <form action="/createRepair" style="overflow: hidden">
+        <form action="/createRepair" style="margin-bottom: 0;">
         <div class="col-sm-10">
             <div class="mainRightBar">
                 <div class="addNewUserWrap addNewUserInfoWrapFirst">

@@ -16,7 +16,7 @@
 </div>
 <div class="form-group">
     <p class="addNewUserLabel">E-mail</p>
-    <input name="email" type="email" class="form-control" value="${user.email}">
+    <input name="email" id="email" type="text" class="form-control" value="${user.email}">
 </div>
 <div class="form-group">
     <p class="addNewUserLabel">Əlaqə</p>
@@ -25,7 +25,7 @@
 <div class="form-group">
     <p class="addNewUserLabel">Ünvan</p>
     <input name="address" type="text" class="form-control" value="${user.address}">
-    <input type="hidden" name="id" value="${user.idUser}">
+    <input type="hidden" name="idUser" value="${user.idUser}">
     <input type="hidden" name="isReturning" value="${isReturning}">
 </div>
 <div class="form-group">

@@ -1,11 +1,11 @@
 package az.hackathon.controller;
 
 
-import az.hackathon.model.Device;
-import az.hackathon.model.Model;
-import az.hackathon.model.Progress;
+import az.hackathon.model.*;
 import az.hackathon.service.RepairService;
+import az.hackathon.service.UserService;
 import az.hackathon.util.Constants;
+import az.hackathon.util.Crypto;
 import az.hackathon.util.MailService;
 import az.hackathon.util.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,9 @@ public class RepairController {
     RepairService repairService;
     @Autowired
     MailService mailService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/updateStatus")
     public String updateRepairStatus(@RequestParam("id") int repairId,
@@ -104,13 +107,57 @@ public class RepairController {
                                @RequestParam("title") String title,
                                @RequestParam("price") int price,
                                @RequestParam("idRepairer") int idRepairer,
-                               @RequestParam("isReturningUser") int isReturningUser,
-                               @RequestParam("trackingNumber") String trackingNumber){
+                               @RequestParam("isReturning") int isReturningUser,
+                               @RequestParam("trackingNumber") String trackingNumber,
+                               HttpSession session){
+
+        System.out.println("idRepairer = " + idRepairer);
+        System.out.println("trackingNumber = " + trackingNumber);
+
+
+        if (isReturningUser==0){
+            User user = new User();
+            user.setEmail(email);
+            user.setContactNumber(phone);
+            user.setAddress(address);
+            user.setFullName(fullName);
+            user.setFin(fin);
+
+            Role role = new Role();
+            role.setIdRole(Constants.ROLE_ID_USER);
+            user.setRole(role);
+           idUser = userService.createNewUser(user);
+        }
+
+        Repair repair = new Repair();
+        User user = new User();
+        user.setIdUser(idUser);
+        repair.setUser(user);
+        Device device = new Device();
+        device.setIdDevice(idDevice);
+        repair.setDevice(device);
+        Staff staff = new Staff();
+        staff.setIdStaff(idRepairer);
+        repair.setStaff(staff);
+        repair.setPrice(price);
+        repair.setTitle(title);
+        repair.setStartDate(new Date());
+        repair.setActive(1);
+        repair.setTrackingNumber(trackingNumber);
+
+        boolean result = repairService.createNewRepair(repair);
+
+        if (!result){
+            session.setAttribute("message", Constants.ERROR_INTERNAL);
+            return "redirect:/staffManager/new-repair";
+        }
 
 
 
 
-        return null;
+
+
+        return "redirect:/staffManager/main";
 
 
 
@@ -147,8 +194,16 @@ public class RepairController {
     @ResponseBody
     public String generateQR(){
 
+        String trackingNumber = Crypto.generateTrackingNumber();
 
-        return null;
+        while (repairService.getTrackingNumberCount(trackingNumber)>0){
+            trackingNumber = Crypto.generateTrackingNumber();
+            System.out.println("sss");
+        }
+
+        System.out.println("trackingNumber = " + trackingNumber);
+
+        return trackingNumber;
     }
 
 

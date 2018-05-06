@@ -32,7 +32,6 @@ public class Crypto {
         int part2 = random.nextInt(900)+100;
         int part3 = random.nextInt(900)+100;
 
-        String result = part1+"-"+part2+"-"+part3;
-        return result;
+        return part1+"-"+part2+"-"+part3;
     }
 }
