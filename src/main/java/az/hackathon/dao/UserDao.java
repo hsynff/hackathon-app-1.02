@@ -1,12 +1,11 @@
-package az.hackathon.service;
+package az.hackathon.dao;
 
 import az.hackathon.model.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+public interface UserDao {
 
-public interface UserService {
     User getUserByFin(String fin);
 
     int createNewUser(User user);

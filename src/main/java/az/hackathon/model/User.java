@@ -23,8 +23,15 @@ public class User {
 
     private List<Repair> repairs;
 
+    private Repair repair;
 
+    public Repair getRepair() {
+        return repair;
+    }
 
+    public void setRepair(Repair repair) {
+        this.repair = repair;
+    }
 
     private Role role;
 

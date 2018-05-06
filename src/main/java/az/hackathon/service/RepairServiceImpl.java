@@ -1,6 +1,7 @@
 package az.hackathon.service;
 
 import az.hackathon.dao.RepairDao;
+import az.hackathon.model.Device;
 import az.hackathon.model.Progress;
 import az.hackathon.model.Repair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,20 @@ public class RepairServiceImpl implements RepairService {
     public Repair getArchiveRepairById(int id) {
 
         return repairDao.getArchiveRepairById(id);
+    }
+
+    @Override
+    public List<Device> getAllDevice() {
+        return null;
+    }
+
+    @Override
+    public boolean createNewRepair(Repair repair) {
+        return false;
+    }
+
+    @Override
+    public Repair getRepairByTrackingNumber(String trackingNumber) {
+        return null;
     }
 }
