@@ -9,6 +9,7 @@ public class Constants {
     public static final int ROLE_ID_REPAIRER = 1;
     public static final int ROLE_ID_MANAGER = 2;
     public static final int ROLE_ID_USER = 3;
+    public static final int DEFAULT_ROLE_ID=4;
 
 
 }
