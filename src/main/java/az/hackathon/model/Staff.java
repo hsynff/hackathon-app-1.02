@@ -22,8 +22,18 @@ public class Staff {
 
     private Role role;
 
+    private Repair repair;
+
 
     private List<Repair> repairs;
+
+    public Repair getRepair() {
+        return repair;
+    }
+
+    public void setRepair(Repair repair) {
+        this.repair = repair;
+    }
 
     public List<Repair> getRepairs() {
         return repairs;

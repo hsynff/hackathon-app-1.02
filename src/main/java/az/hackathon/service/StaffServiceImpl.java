@@ -19,17 +19,19 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public boolean updateStaffPassword(String password) {
-        return false;
+    public boolean updateStaffPassword(String password,int staffId) {
+
+
+        return staffDao.updateStaffPassword(password,staffId);
     }
 
     @Override
     public List<Staff> getAllStaff() {
-        return null;
+        return staffDao.getAllStaff();
     }
 
     @Override
     public boolean addNewRepairer(Staff staff) {
-        return false;
+        return staffDao.addNewRepairer(staff);
     }
 }

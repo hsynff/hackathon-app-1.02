@@ -1,5 +1,6 @@
 package az.hackathon.dao;
 
+import az.hackathon.model.Repair;
 import az.hackathon.model.Role;
 import az.hackathon.model.Staff;
 import org.hibernate.Hibernate;
@@ -51,5 +52,60 @@ public class StaffDaoImpl implements StaffDao {
             return null;
         }
 
+    }
+
+    @Override
+    public boolean updateStaffPassword(String password,int staffId) {
+        String sql="update staff set password=? where id_staff=? ";
+
+        try{
+            jdbcTemplate.update(sql,new Object[]{password,staffId});
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return false;
+    }
+
+    @Override
+    public List<Staff> getAllStaff() {
+        String sql="select * from staff s join repair r on s.id_staff=r.id_staff";
+
+        try{
+         List<Staff> result= jdbcTemplate.query(sql, new RowMapper<Staff>() {
+                @Override
+                public Staff mapRow(ResultSet rs, int i) throws SQLException {
+                    Staff s1=new Staff();
+                    s1.setIdStaff(rs.getInt("id_staff"));
+                    s1.setFullName(rs.getString("full_name"));
+                    s1.setContactNumber(rs.getString("contact_number"));
+                    s1.setUsername(rs.getString("username"));
+                    s1.setPassword(rs.getString("password"));
+                    Role role=new Role();
+                    role.setIdRole(rs.getInt("id_role"));
+                    s1.setRole(role);
+                    Repair repair=new Repair();
+                    repair.setActive(rs.getInt("active"));
+                    s1.setRepair(repair);
+
+                    return s1;
+                }
+            });
+
+         return  result;
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean addNewRepairer(Staff staff) {
+        return false;
     }
 }

@@ -11,7 +11,7 @@ public interface StaffService {
 
     Staff getStaffByUsernameAndPassword(Staff staff);
 
-    boolean updateStaffPassword(String password);
+    boolean updateStaffPassword(String password,int staffId);
 
     List<Staff> getAllStaff();
 
