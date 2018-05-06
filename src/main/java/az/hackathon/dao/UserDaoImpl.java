@@ -93,7 +93,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUser() {
 
-        String sql="select * from user u ";
+        String sql="select * from user u left join repair r on r.id_user=u.id_user  ";
         try{
 
             List<User> result=jdbcTemplate.query(sql, new RowMapper<User>() {

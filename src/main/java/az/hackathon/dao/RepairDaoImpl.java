@@ -193,7 +193,7 @@ public class RepairDaoImpl implements RepairDao {
         String sql="select  r.id_repair,m.model,d.brand,p.percent,r.price,r.title,r.start_date,r.end_date,u.full_name,u.fin,r.tracking_number\n" +
                 " from repair r join device d on r.id_device=d.id_device join model m on d.id_model=m.id_model\n" +
                 " join progress p on r.id_repair=p.id_repair\n" +
-                "join user u on r.id_user=u.id_user where r.id_staff=? and r.active=0 and \n" +
+                "join user u on r.id_user=u.id_user where r.id_staff=? and r.active=2 and \n" +
                 "p.percent=(select max(progress.percent) from progress where progress.id_repair=r.id_repair group by(progress.id_repair))\n" +
                 " group by (r.id_repair)";
 
@@ -242,7 +242,7 @@ public class RepairDaoImpl implements RepairDao {
                 "u.address,u.contact_number\n" +
                 " from repair r join device d on r.id_device=d.id_device join model m on d.id_model=m.id_model\n" +
                 " join progress p on r.id_repair=p.id_repair\n" +
-                "join user u on r.id_user=u.id_user where r.id_repair=? and r.active=0";
+                "join user u on r.id_user=u.id_user where r.id_repair=? and r.active=2";
 
 
         try{
