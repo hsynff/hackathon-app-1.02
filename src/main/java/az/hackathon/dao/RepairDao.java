@@ -1,6 +1,8 @@
 package az.hackathon.dao;
 
 
+import az.hackathon.model.Device;
+import az.hackathon.model.Model;
 import az.hackathon.model.Progress;
 import az.hackathon.model.Repair;
 
@@ -24,4 +26,9 @@ public interface RepairDao {
     List<Repair> getArchiveRepairListByStaffId(int id);
 
     Repair getArchiveRepairById(int id);
+    boolean createNewRepair(Repair repair);
+    List<Model> getAllModel();
+
+    List<Device> getDeviceByModelId(int modelId);
+    Repair getRepairByTrackingNumber(String trackingNumber);
 }

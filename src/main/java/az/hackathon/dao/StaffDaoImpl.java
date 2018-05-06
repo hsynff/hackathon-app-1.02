@@ -111,7 +111,7 @@ public class StaffDaoImpl implements StaffDao {
 
         try{
             jdbcTemplate.update(sql,new Object[]{staff.getFullName(),staff.getContactNumber(),staff.getUsername(),staff.getPassword(),staff.getRole().getIdRole()});
-            
+
 
             return true;
         }catch (Exception e){

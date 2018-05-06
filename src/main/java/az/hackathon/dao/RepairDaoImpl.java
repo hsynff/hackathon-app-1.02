@@ -295,4 +295,78 @@ public class RepairDaoImpl implements RepairDao {
 
         return null;
     }
+
+
+    @Override
+    public List<Device> getDeviceByModelId(int modelId) {
+        String sql="select * from device d join model m on d.id_model=m.id_model where d.id_model=?";
+        try{
+            List<Device> result=jdbcTemplate.query(sql, new Object[]{modelId}, new RowMapper<Device>() {
+                @Override
+                public Device mapRow(ResultSet rs, int i) throws SQLException {
+                    Device device=new Device();
+                    device.setIdDevice(rs.getInt("id_device"));
+                    device.setBrand(rs.getString("brand"));
+                    Model model=new Model();
+                    model.setIdModel(rs.getInt("id_model"));
+                    model.setModel(rs.getString("model"));
+                    device.setModel(model);
+                    return device;
+                }
+            });
+
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean createNewRepair(Repair repair) {
+        String sql="insert into repair(id_user,id_device,id_staff,price,title,start_date,active,tracking_number)"+
+                " values(?,?,?,?,?,?,?,?)";
+        try{
+            jdbcTemplate.update(sql,new Object[]{repair.getUser().getIdUser(),repair.getDevice().getIdDevice(),
+            repair.getStaff().getIdStaff(),repair.getPrice(),repair.getTitle(),repair.getStartDate(),repair.getActive(),repair.getTrackingNumber()});
+
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return false;
+    }
+
+    @Override
+    public List<Model> getAllModel() {
+        String sql="select * from device";
+
+        try{
+
+            List<Model> result=jdbcTemplate.query(sql, new RowMapper<Model>() {
+                @Override
+                public Model mapRow(ResultSet resultSet, int i) throws SQLException {
+                    Model model=new Model();
+                    model.setIdModel(resultSet.getInt("id_model"));
+                    model.setModel(resultSet.getString("model"));
+                    return model;
+                }
+            });
+
+            return result;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
+
+    @Override
+    public Repair getRepairByTrackingNumber(String trackingNumber) {
+        return null;
+    }
 }

@@ -90,7 +90,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAllUser() {
 
-        String sql="select * from user u where u.fin=?";
+        String sql="select * from user u ";
         try{
 
             List<User> result=jdbcTemplate.query(sql, new RowMapper<User>() {
