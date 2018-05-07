@@ -31,6 +31,24 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <mvc:interceptors>
+    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <mvc:exclude-mapping path="/resources/**"/>
+        <mvc:exclude-mapping path="/user/**"/>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor" />
+    </mvc:interceptor>
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <mvc:exclude-mapping path="/resources/**"/>
+        <mvc:exclude-mapping path="/user/**"/>
+        <mvc:exclude-mapping path="/login"/>
+        <mvc:exclude-mapping path="/doLogin"/>
+        <bean class="az.hackathon.util.SecurityInterceptor" />
+    </mvc:interceptor>
+    </mvc:interceptors>
+
 
 
     <bean id="boneCPDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">

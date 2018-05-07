@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 
             return user;
         }catch (Exception e){
-            e.printStackTrace();
+            //ignore
         }
 
 
